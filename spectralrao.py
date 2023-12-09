@@ -52,8 +52,9 @@ def spectralrao(data_input, output_path, distance_m="euclidean", p=np.nan, windo
     float_dtypes = ("float_", "float16", "float32", "float64")
 
     if mode == "classic":  # one dimension input
-        info = data_input.profile
-        data_input = tiff_to_numpy(data_input)
+        if not isinstance(data_input, np.array):
+          info = data_input.profile
+          data_input = tiff_to_numpy(data_input)
         rasterm = np.copy(data_input)
 
         isfloat = False  # If data are float numbers, transform them in integer
@@ -224,5 +225,5 @@ def spectralrao(data_input, output_path, distance_m="euclidean", p=np.nan, windo
                     raoqe[rw - w, cl - w] = np.nansum(vout_rescaled)
 
     output = [raoqe]
-    export_tiff(info, raoqe, output_path)
+    # export_tiff(info, raoqe, output_path)
     return output
