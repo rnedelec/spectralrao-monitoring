@@ -108,8 +108,9 @@ def spectralrao(data_input, output_path, distance_m="euclidean", p=np.nan, windo
 
         # Loop over each pixel
         for cl in range(w, w + rasterm.shape[1]):
+            print(f'Computing column {cl} over {rasterm.shape[1]}')
             for rw in range(w, w + rasterm.shape[0]):
-                print('Computing pixel {:d},{:d}'.format(rw, cl))
+                # print('Computing pixel {:d},{:d}'.format(rw, cl))
 
                 # Check if the pixel is on the border
                 borderCondition = np.sum(
@@ -163,7 +164,7 @@ def spectralrao(data_input, output_path, distance_m="euclidean", p=np.nan, windo
                                         classes_values[c] == nan_to_int64)):  # distanza 0 se un valore e' nan
                                     d2[i, j] = 0
                                 else:
-                                    d2[i, j] = classes_values[c] - classes_values[r]
+                                    d2[i, j] = abs(classes_values[c] - classes_values[r])
 
                         # Finally compute RAO for the current pixel
                         if isfloat:
